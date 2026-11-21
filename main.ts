@@ -1,10 +1,11 @@
 // Sokoban solver — BFS v3. String grid, D=pull-distance (255=dead, >99),
 // A doubles as cut-marker (-2), numeric keys, solver inlined into IO loop.
 import fs from"node:fs";
+let E=process.env,I=E.MAKEFUN_INPUT_DIR||"/input",O=E.MAKEFUN_OUTPUT_DIR||"/output";
 for(let k=1;k<=5;k++){
   let mv="";
   try{
-    let t=fs.readFileSync("/input/i00"+k+"/level.txt","utf8"),W=t.indexOf("\n");t=t.replace(/\n/g,"#");
+    let t=fs.readFileSync(I+"/i00"+k+"/level.txt","utf8"),W=t.indexOf("\n");t=t.replace(/\n/g,"#");
     let S=W+1,N=t.length,E=[-S,S,-1,1],Z="udlr",G=[],B=[],P=0;
     for(let i=0;i<N;i++){let c=t[i];if(".*+".includes(c))G.push(i);if("$*".includes(c))B.push(i);if("@+".includes(c))P=i}
     let D=new Uint8Array(N).fill(255),Q=[...G];
@@ -57,6 +58,6 @@ for(let k=1;k<=5;k++){
       CB=CB.filter(x=>!m.b.includes(x)).concat(m.g);
     }
   }catch{mv=""}
-  fs.mkdirSync("/output/i00"+k,{recursive:true});
-  fs.writeFileSync("/output/i00"+k+"/solution.txt",mv+"\n");
+  fs.mkdirSync(O+"/i00"+k,{recursive:true});
+  fs.writeFileSync(O+"/i00"+k+"/solution.txt",mv+"\n");
 }
